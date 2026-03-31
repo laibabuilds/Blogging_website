@@ -44,7 +44,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
         </a>
 
         <div class="menu-label">Users</div>
-        <a href="users.php" class="<?= ($current_page == 'users_accounts.php') ? 'active' : '' ?>">
+        <a href="users_accounts.php" class="<?= ($current_page == 'users_accounts.php') ? 'active' : '' ?>">
             <i class="fas fa-users"></i> User Accounts
         </a>
 
@@ -105,7 +105,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
 
         <div class="d-flex align-items-center gap-2 gap-md-3">
 
-            <a href="home.php" target="_blank" class="btn btn-sm view-site-btn">
+            <a href="../home.php" target="_blank" class="btn btn-sm view-site-btn">
                 <i class="fas fa-eye"></i> <span class="d-none d-md-inline">View Site</span>
             </a>
 
