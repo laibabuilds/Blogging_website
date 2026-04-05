@@ -2,7 +2,10 @@
 @include '../components/connect.php';
 session_start();
 
-$admin_id = $_SESSION['admin_id'] ?? 1;
+$admin_id = $_SESSION['admin_id'];
+if (!isset($admin_id)) {
+    header('location:admin_login.php');
+}
 $select_admin = $conn->prepare("SELECT * FROM admin WHERE id = ?");
 $select_admin->execute([$admin_id]);
 
@@ -13,6 +16,7 @@ $total_posts = $conn->query("SELECT COUNT(*) FROM posts")->fetchColumn();
 $total_users = $conn->query("SELECT COUNT(*) FROM users")->fetchColumn();
 $total_comments = $conn->query("SELECT COUNT(*) FROM comments")->fetchColumn();
 $total_likes = $conn->query("SELECT COUNT(*) FROM likes")->fetchColumn();
+$total_admins = $conn->query("SELECT COUNT(*) FROM admin")->fetchColumn();
 
 //  RECENT POSTS
 $recentPosts = $conn->query("
@@ -56,7 +60,7 @@ function formatDate($date)
     <!-- CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="../bootstrap-5.3.8-dist/bootstrap-5.3.8-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/admin-style.css">
+    <link rel="stylesheet" href="../css/adminStyle.css">
 
 
 </head>
@@ -190,72 +194,74 @@ function formatDate($date)
 
 
         <!-- Right column -->
-         
+
         <div class="col-lg-4">
             <div class="dash-card p-3">
                 <h5 class="mb-3">Overview</h5>
                 <canvas id="myChart"></canvas>
                 <!-- <h3 id="totalPosts"><?= $total_posts ?></h3>
                 <h3 id="totalUsers"><?= $total_users ?></h3>
+                <?= $total_admins ?>
                 <h3 id="totalComments"><?= $total_comments ?></h3>
                 <h3 id="totalLikes"><?= $total_likes ?></h3> -->
 
             </div>
             <div class=" d-flex flex-column gap-4">
-            <!-- Recent comments -->
+                <!-- Recent comments -->
 
-            <div class="dash-card flex-fill">
-                <div class="dash-card-header">
-                    <div class="dash-card-title">
-                        <div class="dash-card-title-icon green"><i class="fas fa-comments"></i></div>
-                        <div>
-                            <h5>Recent Comments</h5>
-                            <span>Latest activity</span>
-                        </div>
-                    </div>
-                    <a href="comments.php" class="dash-view-all">View All <i class="fas fa-chevron-right ms-1"></i></a>
-                </div>
-                <div class="dash-comments-list">
-                    <?php if (empty($recentComments)): ?>
-                        <div class="dash-empty"><i class="fas fa-comments"></i>
-                            <p>No comments yet.</p>
-                        </div>
-                    <?php else: ?>
-                        <?php foreach ($recentComments as $c): ?>
-                            <div class="dash-comment-item">
-                                <div class="dash-comment-avatar"><?= strtoupper(substr($c['user_name'], 0, 1)) ?></div>
-                                <div class="dash-comment-body">
-                                    <div class="dash-comment-meta">
-                                        <strong><?= sanitize($c['user_name']) ?></strong>
-                                        <span><?= formatDate($c['date']) ?></span>
-                                    </div>
-                                    <p class="dash-comment-text"><?= sanitize(substr($c['comment'], 0, 70)) ?><?= strlen($c['comment']) > 70 ? '…' : '' ?></p>
-                                    <div class="dash-comment-post">on: <a href="../post.php?id=<?= $c['post_id'] ?>" target="_blank"><?= sanitize(substr($c['post_title'], 0, 32)) ?>…</a></div>
-                                </div>
+                <div class="dash-card flex-fill">
+                    <div class="dash-card-header">
+                        <div class="dash-card-title">
+                            <div class="dash-card-title-icon green"><i class="fas fa-comments"></i></div>
+                            <div>
+                                <h5>Recent Comments</h5>
+                                <span>Latest activity</span>
                             </div>
-                        <?php endforeach; ?>
-                    <?php endif; ?>
+                        </div>
+                        <a href="comments.php" class="dash-view-all">View All <i class="fas fa-chevron-right ms-1"></i></a>
+                    </div>
+                    <div class="dash-comments-list">
+                        <?php if (empty($recentComments)): ?>
+                            <div class="dash-empty"><i class="fas fa-comments"></i>
+                                <p>No comments yet.</p>
+                            </div>
+                        <?php else: ?>
+                            <?php foreach ($recentComments as $c): ?>
+                                <div class="dash-comment-item">
+                                    <div class="dash-comment-avatar"><?= strtoupper(substr($c['user_name'], 0, 1)) ?></div>
+                                    <div class="dash-comment-body">
+                                        <div class="dash-comment-meta">
+                                            <strong><?= sanitize($c['user_name']) ?></strong>
+                                            <span><?= formatDate($c['date']) ?></span>
+                                        </div>
+                                        <p class="dash-comment-text"><?= sanitize(substr($c['comment'], 0, 70)) ?><?= strlen($c['comment']) > 70 ? '…' : '' ?></p>
+                                        <div class="dash-comment-post">on: <a href="../post.php?id=<?= $c['post_id'] ?>" target="_blank"><?= sanitize(substr($c['post_title'], 0, 32)) ?>…</a></div>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </div>
                 </div>
             </div>
         </div>
-        </div>
-        
+
 
     </div>
 
     <!-- JS -->
 
     <script src="../bootstrap-5.3.8-dist/bootstrap-5.3.8-dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>  
-  <!-- <script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
         const chartData = {
             totalPosts: <?= $total_posts ?>,
             totalUsers: <?= $total_users ?>,
             totalComments: <?= $total_comments ?>,
-            totalLikes: <?= $total_likes ?>
+            totalLikes: <?= $total_likes ?>,
+            totalAdmins: <?= $total_admins ?>,
         };
-    </script> -->
-    <script src="../js/admin-Script.js"></script>
+    </script>
+    <script src="../js/adminScript.js"></script>
     <!-- <script>
     function checkScriptConnection() {
   console.log(" External JS file is connected!");

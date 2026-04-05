@@ -1,7 +1,7 @@
 <?php
 @include __DIR__ . '/connect.php';
 
-if(session_status() === PHP_SESSION_NONE){
+if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
@@ -53,6 +53,10 @@ $current_page = basename($_SERVER['PHP_SELF']);
             <i class="fas fa-user-shield"></i> Admin Accounts
         </a>
 
+        <a href="register_admin.php" class="<?= ($current_page == 'register_admin.php') ? 'active' : '' ?>">
+            <i class="fas fa-user-plus"></i> Add Admin
+        </a>
+
         <a href="update_profile.php" class="<?= ($current_page == 'update-account.php') ? 'active' : '' ?>">
             <i class="fas fa-user-cog"></i> Update Account
         </a>
@@ -74,46 +78,47 @@ $current_page = basename($_SERVER['PHP_SELF']);
 <div class="admin-main">
 
     <!-- TOPBAR -->
-   <div class="admin-topbar">
-    <div class="d-flex align-items-center justify-content-between gap-3 w-100">
+    <div class="admin-topbar">
+        <div class="d-flex align-items-center justify-content-between gap-3 w-100">
 
-    
-        <div class="d-flex align-items-center gap-3 flex-grow-1 ">
-            <!-- Toggle Button (mobile only) -->
-            <button class="sidebar-toggle d-lg-none" id="toggleSidebar">
-        <i class="fas fa-bars"></i>
-    </button>
 
-            
-            <div class="fw-semibold text-muted small ">
-                <?php
-                $pageNames = [
-                    'dashboard.php' => 'Dashboard',
-                    'view_posts.php' => 'View Posts',
-                    'add_posts.php' => 'Add New Post',
-                    'edit_post.php' => 'Edit Post',
-                    'comments.php' => 'Comments',
-                    'users.php' => 'User Accounts',
-                    'admin_accounts.php' => 'Admin Accounts',
-                    'update_profile.php' => 'Update Account'
-                ];
-                $currentPageName = $pageNames[$current_page] ?? 'Dashboard';
-                echo 'Dashboard / ' . $currentPageName;
-                ?>
-            </div>
-        </div>
+            <div class="d-flex align-items-center gap-3 flex-grow-1 ">
+                <!-- Toggle Button (mobile only) -->
+                <button class="sidebar-toggle d-lg-none" id="toggleSidebar">
+                    <i class="fas fa-bars"></i>
+                </button>
 
-        <div class="d-flex align-items-center gap-2 gap-md-3">
 
-            <a href="../home.php" target="_blank" class="btn btn-sm view-site-btn">
-                <i class="fas fa-eye"></i> <span class="d-none d-md-inline">View Site</span>
-            </a>
-
-            <div class="d-flex align-items-center gap-2">
-                <div class="user-avatar"><?= strtoupper(substr($currentAdmin['name'], 0, 1)) ?></div>
-                <span class="fw-medium d-none d-md-inline"><?= $currentAdmin['name'] ?></span>
+                <div class="fw-semibold text-muted small ">
+                    <?php
+                    $pageNames = [
+                        'dashboard.php' => 'Dashboard',
+                        'view_posts.php' => 'View Posts',
+                        'add_posts.php' => 'Add New Post',
+                        'edit_post.php' => 'Edit Post',
+                        'comments.php' => 'Comments',
+                        'users_accounts.php' => 'User Accounts',
+                        'admin_accounts.php' => 'Admin Accounts',
+                        'register_admin.php' => 'Register User',
+                        'update_profile.php' => 'Update Account'
+                    ];
+                    $currentPageName = $pageNames[$current_page] ?? 'Dashboard';
+                    echo 'Dashboard / ' . $currentPageName;
+                    ?>
+                </div>
             </div>
 
+            <div class="d-flex align-items-center gap-2 gap-md-3">
+
+                <a href="../home.php" target="_blank" class="btn btn-sm view-site-btn">
+                    <i class="fas fa-eye"></i> <span class="d-none d-md-inline">View Site</span>
+                </a>
+
+                <div class="d-flex align-items-center gap-2">
+                    <div class="user-avatar"><?= strtoupper(substr($currentAdmin['name'], 0, 1)) ?></div>
+                    <span class="fw-medium d-none d-md-inline"><?= $currentAdmin['name'] ?></span>
+                </div>
+
+            </div>
         </div>
     </div>
-</div>
