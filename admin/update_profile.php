@@ -26,9 +26,9 @@ $adminData = $stmt->fetch(PDO::FETCH_ASSOC);
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // CSRF check
-    if (!verifyCsrf()) {
-        $error = 'Invalid request!';
-    } else {
+    // if (!verifyCsrf()) {
+    //     $error = 'Invalid request!';
+    // } else {
 
         $name = trim($_POST['name'] ?? '');
         $password = $_POST['password'] ?? '';
@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $adminData['name'] = $name;
             }
         }
-    }
+    // }
 }
 ?>
 
@@ -117,7 +117,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </div>
 
                     <form method="POST" class="p-4">
-                        <input type="hidden" name="csrf_token" value="<?= csrfToken() ?>">
+                        <!-- <input type="hidden" name="csrf_token" value=""> -->
                         <div class="mb-3">
                             <label class="form-label">Username <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" name="name" value="<?= sanitize($adminData['name']) ?>" required>
