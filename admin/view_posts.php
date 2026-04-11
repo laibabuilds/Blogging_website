@@ -2,65 +2,13 @@
 @include '../components/connect.php';
 session_start();
 
-// ================== AUTH CHECK ==================
+// ================== AUTH ==================
 if (!isset($_SESSION['admin_id'])) {
     header("Location: admin_login.php");
     exit();
 }
 
-// ================== CATEGORIES (FIXED) ==================
-$CATEGORIES = [
-    'Technology','Lifestyle','Travel','Health','Fashion',
-    'Food','Sports','Business','Education','Entertainment',
-    'Science','Politics','Other'
-];
-
-// ================== DELETE POST ==================
-if (isset($_POST['delete_id'])) {
-    $delete_id = $_POST['delete_id'];
-
-    // delete image
-    $get_img = $conn->prepare("SELECT image FROM posts WHERE id = ?");
-    $get_img->execute([$delete_id]);
-    $img = $get_img->fetchColumn();
-
-    if ($img && file_exists("../uploaded_img/$img")) {
-        unlink("../uploaded_img/$img");
-    }
-
-    // delete post
-    $delete = $conn->prepare("DELETE FROM posts WHERE id = ?");
-    $delete->execute([$delete_id]);
-
-    header("Location: view_posts.php");
-    exit();
-}
-
-// ================== FILTERS ==================
-$search = $_GET['s'] ?? '';
-$category = $_GET['cat'] ?? '';
-
-$sql = "SELECT * FROM posts WHERE 1=1";
-$params = [];
-
-if ($search) {
-    $sql .= " AND (title LIKE ? OR name LIKE ?)";
-    $params[] = "%$search%";
-    $params[] = "%$search%";
-}
-
-if ($category) {
-    $sql .= " AND category = ?";
-    $params[] = $category;
-}
-
-$sql .= " ORDER BY id DESC";
-
-$stmt = $conn->prepare($sql);
-$stmt->execute($params);
-$posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-// ================== HELPERS ==================
+// ================== FUNCTIONS ==================
 function sanitize($data) {
     return htmlspecialchars($data, ENT_QUOTES, 'UTF-8');
 }
@@ -68,18 +16,94 @@ function sanitize($data) {
 function formatDate($date) {
     return date("d M Y", strtotime($date));
 }
+
+// ================== DELETE ==================
+if (isset($_GET['delete'])) {
+    $id = $_GET['delete'];
+
+    $conn->prepare("DELETE FROM comments WHERE post_id=?")->execute([$id]);
+    $conn->prepare("DELETE FROM likes WHERE post_id=?")->execute([$id]);
+    $conn->prepare("DELETE FROM posts WHERE id=?")->execute([$id]);
+
+    header("Location: view_posts.php");
+    exit();
+}
+
+// ================== FILTER ==================
+$search = $_GET['search'] ?? '';
+$category = $_GET['category'] ?? '';
+
+$query = "
+    SELECT p.*,
+    (SELECT COUNT(*) FROM likes WHERE post_id = p.id) AS like_count,
+    (SELECT COUNT(*) FROM comments WHERE post_id = p.id) AS comment_count
+    FROM posts p
+    WHERE 1
+";
+
+$params = [];
+
+if ($search) {
+    $query .= " AND (p.title LIKE ? OR p.name LIKE ?)";
+    $params[] = "%$search%";
+    $params[] = "%$search%";
+}
+
+if ($category) {
+    $query .= " AND p.category = ?";
+    $params[] = $category;
+}
+
+$query .= " ORDER BY p.id DESC";
+
+$stmt = $conn->prepare($query);
+$stmt->execute($params);
+$posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+// categories (same as add post)
+$CATEGORIES = ['Technology','Lifestyle','Travel','Health','Fashion','Food','Sports','Business','Education','Entertainment','Science','Politics','Other'];
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View Posts</title>
+<meta charset="UTF-8">
+<title>View Posts</title>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylesheet" href="../bootstrap-5.3.8-dist/bootstrap-5.3.8-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/adminStyle.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="../bootstrap-5.3.8-dist/bootstrap-5.3.8-dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="../css/adminStyle.css">
+
+<style>
+/* 🔥 Replit-like clean styling */
+.table-clean th {
+    font-size: 0.8rem;
+    color: #6b7280;
+    text-transform: uppercase;
+}
+
+.table-clean td {
+    font-size: 0.85rem;
+    vertical-align: middle;
+}
+
+.table-clean tr:hover {
+    background: #f9fafb;
+}
+
+.badge-soft {
+    background: rgba(245,158,11,0.15);
+    color: #92400e;
+    font-size: 0.75rem;
+}
+
+.action-btn {
+    padding: 4px 8px;
+    font-size: 0.75rem;
+    border-radius: 5px;
+}
+</style>
+
 </head>
 
 <body>
@@ -88,114 +112,123 @@ function formatDate($date) {
 
 <div class="container mt-4">
 
-    <div class="dash-card p-4">
+<div class="dash-card p-4">
 
-        <!-- HEADER -->
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <div>
-                <h4 class="mb-1"><i class="fas fa-file-alt"></i> All Posts</h4>
-                <small class="text-muted"><?= count($posts) ?> total posts</small>
-            </div>
+<!-- HEADER -->
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h5><i class="fas fa-file-alt me-2"></i>All Posts</h5>
 
-            <a href="add_posts.php" class="btn btn-primary">
-                <i class="fas fa-plus"></i> Add New Post
-            </a>
-        </div>
+    <a href="add_posts.php" class="btn btn-primary btn-sm">
+        <i class="fas fa-plus"></i> Add Post
+    </a>
+</div>
 
-        <!-- FILTER BAR -->
-        <div class="mb-4 p-3 rounded-2" style="background:var(--bg-light);border:1px solid var(--border);">
+<!-- FILTER -->
+<form method="GET" class="d-flex flex-wrap gap-2 mb-3">
 
-            <form method="GET" class="row g-2 align-items-center">
+    <input type="text" name="search" class="form-control form-control-sm"
+           placeholder="Search posts..."
+           value="<?= sanitize($search) ?>" style="max-width:220px;">
 
-                <div class="col-md-4">
-                    <input type="text" name="s" class="form-control"
-                        placeholder="Search by title or author..."
-                        value="<?= sanitize($search) ?>">
-                </div>
+    <select name="category" class="form-select form-select-sm" style="max-width:160px;">
+        <option value="">All Categories</option>
+        <?php foreach ($CATEGORIES as $cat): ?>
+            <option value="<?= $cat ?>" <?= $category == $cat ? 'selected' : '' ?>>
+                <?= $cat ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
 
-                <div class="col-md-3">
-                    <select name="cat" class="form-select">
-                        <option value="">All Categories</option>
-                        <?php foreach ($CATEGORIES as $c): ?>
-                            <option value="<?= $c ?>" <?= $c == $category ? 'selected' : '' ?>>
-                                <?= $c ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
+    <button class="btn btn-sm btn-primary">Filter</button>
 
-                <div class="col-md-auto">
-                    <button class="btn btn-primary">
-                        <i class="fas fa-filter"></i> Filter
-                    </button>
-                </div>
+    <?php if ($search || $category): ?>
+        <a href="view_posts.php" class="btn btn-sm btn-outline-secondary">Clear</a>
+    <?php endif; ?>
 
-                <div class="col-md-auto">
-                    <a href="view_posts.php" class="btn btn-secondary">
-                        Clear
-                    </a>
-                </div>
+</form>
 
-            </form>
+<!-- TABLE -->
+<div class="table-responsive">
+<table class="table table-clean mb-0">
 
-        </div>
+<thead>
+<tr>
+    <th>ID</th>
+    <th>Title</th>
+    <th>Category</th>
+    <th>Author</th>
+    <th>Date</th>
+    <th>Stats</th>
+    <th>Status</th>
+    <th>Actions</th>
+</tr>
+</thead>
 
-        <!-- POSTS LIST -->
-        <?php if (empty($posts)): ?>
-            <div class="text-center py-5 text-muted">
-                <i class="fas fa-file-alt fa-2x mb-2"></i>
-                <p>No posts found</p>
-            </div>
-        <?php else: ?>
+<tbody>
+<?php if (empty($posts)): ?>
+<tr>
+    <td colspan="8" class="text-center text-muted py-4">No posts found</td>
+</tr>
+<?php else: ?>
 
-            <?php foreach ($posts as $post): ?>
+<?php foreach ($posts as $post): ?>
+<tr>
 
-                <div class="border-bottom py-3 d-flex justify-content-between align-items-center">
+<td><?= $post['id'] ?></td>
 
-                    <!-- LEFT CONTENT -->
-                    <div style="max-width:75%;">
+<td>
+    <strong><?= sanitize(substr($post['title'],0,50)) ?></strong>
+</td>
 
-                        <h5 class="mb-1"><?= sanitize($post['title']) ?></h5>
+<td>
+    <span class="badge badge-soft"><?= sanitize($post['category']) ?></span>
+</td>
 
-                        <div class="text-muted small">
-                            <span><i class="fas fa-user"></i> <?= sanitize($post['name']) ?></span> |
-                            <span><i class="fas fa-calendar"></i> <?= formatDate($post['date']) ?></span> |
-                            <span class="badge bg-warning text-dark"><?= sanitize($post['category']) ?></span>
-                        </div>
+<td><?= sanitize($post['name']) ?></td>
 
-                        <div class="mt-1">
-                            <span class="<?= $post['status'] === 'active' ? 'badge bg-success' : 'badge bg-secondary' ?>">
-                                <?= ucfirst($post['status']) ?>
-                            </span>
-                        </div>
+<td><?= formatDate($post['date']) ?></td>
 
-                    </div>
+<td>
+    <i class="fas fa-heart text-danger"></i> <?= $post['like_count'] ?>
+    &nbsp;
+    <i class="fas fa-comment text-primary"></i> <?= $post['comment_count'] ?>
+</td>
 
-                    <!-- RIGHT ACTIONS -->
-                    <div class="d-flex gap-2">
+<td>
+    <span class="badge <?= $post['status']=='active' ? 'bg-success' : 'bg-secondary' ?>">
+        <?= ucfirst($post['status']) ?>
+    </span>
+</td>
 
-                        <a href="edit_post.php?id=<?= $post['id'] ?>" class="btn btn-sm btn-primary">
-                            <i class="fas fa-edit"></i>
-                        </a>
+<td>
+    <div class="d-flex gap-1">
 
-                        <!-- DELETE FORM -->
-                        <form method="POST" onsubmit="return confirm('Delete this post?')">
-                            <input type="hidden" name="delete_id" value="<?= $post['id'] ?>">
-                            <button class="btn btn-sm btn-danger">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </form>
+        <a href="edit_post.php?id=<?= $post['id'] ?>"
+           class="btn action-btn"
+           style="background:#eff6ff;border:1px solid #bfdbfe;color:#1d4ed8;">
+           <i class="fas fa-edit"></i>
+        </a>
 
-                    </div>
-
-                </div>
-
-            <?php endforeach; ?>
-
-        <?php endif; ?>
+        <a href="?delete=<?= $post['id'] ?>"
+           onclick="return confirm('Delete this post?')"
+           class="btn action-btn"
+           style="background:#fef2f2;border:1px solid #fecaca;color:#dc2626;">
+           <i class="fas fa-trash"></i>
+        </a>
 
     </div>
+</td>
 
+</tr>
+<?php endforeach; ?>
+
+<?php endif; ?>
+</tbody>
+
+</table>
+</div>
+
+</div>
 </div>
 
 <script src="../bootstrap-5.3.8-dist/bootstrap-5.3.8-dist/js/bootstrap.bundle.min.js"></script>
