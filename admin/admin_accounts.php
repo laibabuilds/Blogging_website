@@ -9,13 +9,30 @@ if (!isset($admin_id)) {
     header('location:admin_login.php');
 }
 
-requireAdminLogin(); // 
+requireAdminLogin();
 
 $currentAdmin = getCurrentAdmin();
 
 //  FETCH ALL ADMINS
 $stmt = $conn->query("SELECT * FROM admin ORDER BY id DESC");
 $admins = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+// DELETE ADMIN (simple)
+if (isset($_GET['delete'])) {
+
+    $delete_id = $_GET['delete'];
+
+    // don't delete yourself
+    if ($delete_id != $currentAdmin['id']) {
+
+        $stmt = $conn->prepare("DELETE FROM admin WHERE id = ?");
+        $stmt->execute([$delete_id]);
+
+    }
+
+    header("Location: admin_accounts.php");
+    exit;
+}
 ?>
 
 <!DOCTYPE html>
@@ -96,13 +113,13 @@ $admins = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                                         <td>
                                             <?php if ($a['id'] != $currentAdmin['id']): ?>
-                                                <a href="delete-admin.php?id=<?= $a['id'] ?>"
-                                                    class="btn btn-sm btn-danger btn-delete-confirm"
+                                                <a href="?delete=<?= $a['id'] ?>"
+                                                 class="btn btn-sm btn-danger btn-delete-confirm"
                                                     data-name="<?= sanitize($a['name']) ?>">
                                                     <i class="fas fa-trash"></i> Remove
                                                 </a>
                                             <?php else: ?>
-                                                <span class="text-muted small">Protected</span>
+                                                <span class="text-muted small p-2 rounded-3 bg-warning">Protected</span>
                                             <?php endif; ?>
                                         </td>
                                     </tr>
