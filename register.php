@@ -5,7 +5,7 @@ require_once 'includes/functions.php';
 
 // If user already logged in, redirect to home page
 if (isUserLoggedIn()) {
-    header('Location: index.php');
+    header('Location: home.php');
     exit;
 }
 
