@@ -4,7 +4,8 @@ require_once 'includes/functions.php';
 
 // Make sure user is logged in
 requireUserLogin();
-function setFlash($type, $message) {
+function setFlash($type, $message)
+{
     $_SESSION['flash'] = [
         'type' => $type,
         'message' => $message
@@ -107,7 +108,7 @@ $pageTitle = 'My Profile';
                         <?php if ($error): ?>
                             <div class="alert alert-danger"><i class="fas fa-exclamation-triangle me-2"></i><?= sanitize($error) ?></div>
                         <?php endif; ?>
-                         <?php if ($error): ?>
+                        <?php if ($error): ?>
                             <div class="alert alert-danger"><i class="fas fa-exclamation-triangle me-2"></i><?= sanitize($error) ?></div>
                         <?php endif; ?>
 
