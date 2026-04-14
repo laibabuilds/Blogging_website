@@ -186,3 +186,52 @@ function getAllCommentsAdmin()
 
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
+function getPostComments($postId) {
+    $db = getDB();
+
+    $stmt = $db->prepare("
+        SELECT cm.*, u.username
+        FROM comments cm
+        LEFT JOIN users u ON cm.user_id = u.id
+        WHERE cm.post_id = ?
+        ORDER BY cm.created_at DESC
+    ");
+
+    $stmt->execute([$postId]);
+    return $stmt->fetchAll();
+}
+function getPostsByCategory($category, $limit = 3) {
+    $db = getDB();
+
+    $stmt = $db->prepare("
+        SELECT *
+        FROM posts
+        WHERE category = ?
+          AND status = 'active'
+        ORDER BY date DESC
+        LIMIT ?
+    ");
+
+    $stmt->bindValue(1, $category, PDO::PARAM_STR);
+    $stmt->bindValue(2, (int)$limit, PDO::PARAM_INT);
+
+    $stmt->execute();
+    return $stmt->fetchAll();
+}
+function getRecentPosts($limit = 4) {
+    $db = getDB();
+
+    $stmt = $db->prepare("
+        SELECT *
+        FROM posts
+        WHERE status = 'active'
+        ORDER BY date DESC
+        LIMIT ?
+    ");
+
+    $stmt->bindValue(1, (int)$limit, PDO::PARAM_INT);
+    $stmt->execute();
+
+    return $stmt->fetchAll();
+}
