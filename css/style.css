@@ -241,6 +241,24 @@ textarea.form-control { resize: vertical; min-height: 120px; }
     color: #fff;
 }
 
+.btn-accent {
+    background: var(--accent);
+    border: none;
+    color: #fff;
+    border-radius: 25px;
+    padding: 0.65rem 2rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: var(--transition);
+}
+
+.btn-accent:hover {
+    background: var(--accent-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 15px rgba(245,158,11,0.35);
+    color: #fff;
+}
+
 /* ===== USER AVATAR ===== */
 .user-avatar {
     width: 38px;
