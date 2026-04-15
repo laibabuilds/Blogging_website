@@ -90,7 +90,7 @@ $pageDesc = 'Browse all blog posts.';
     <!-- CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="bootstrap-5.3.8-dist/bootstrap-5.3.8-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/Style.css">
+    <link rel="stylesheet" href="css\style.css">
 
 
 </head>
@@ -202,7 +202,7 @@ $pageDesc = 'Browse all blog posts.';
                                         <span class="post-card-category"><?= sanitize($post['category']) ?></span>
                                     </div>
                                     <div class="post-card-body">
-                                        <h3 class="post-card-title"><a href="post.php?id=<?= $post['id'] ?>"><?= sanitize($post['title']) ?></a></h3>
+                                        <h3 class="post-card-title"><a href="view_post.php?id=<?= $post['id'] ?>"><?= sanitize($post['title']) ?></a></h3>
                                         <p class="post-card-excerpt"><?= excerpt($post['content'], 120) ?></p>
                                         <div class="post-card-meta">
                                             <div>
