@@ -143,7 +143,25 @@ function getAllCategories()
 
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+// ger all categogry 
+function getPostsByCategory($category, $limit = 3) {
+    $db = getDB();
 
+    $stmt = $db->prepare("
+        SELECT *
+        FROM posts
+        WHERE category = ?
+          AND status = 'active'
+        ORDER BY date DESC
+        LIMIT ?
+    ");
+
+    $stmt->bindValue(1, $category, PDO::PARAM_STR);
+    $stmt->bindValue(2, (int)$limit, PDO::PARAM_INT);
+
+    $stmt->execute();
+    return $stmt->fetchAll();
+}
 /* =====================================================
    SEARCH FUNCTIONS
 ===================================================== */
@@ -259,22 +277,6 @@ function getAdminStats()
     ];
 }
 
-/* ================== GET CURRENT USER ================== */
-function getCurrentUser()
-{
-    if (isset($_SESSION['user_id'])) {
-
-        $db = getDB(); // make sure this function exists
-
-        $stmt = $db->prepare("SELECT * FROM users WHERE id = ?");
-        $stmt->execute([$_SESSION['user_id']]);
-
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-    }
-
-    return null;
-}
-
 /* ================== FLASH MESSAGE ================== */
 function getFlash()
 {
@@ -285,27 +287,4 @@ function getFlash()
     }
 
     return null;
-}
-
-/* OPTIONAL: SET FLASH MESSAGE */
-function setFlash($type, $message)
-{
-    $_SESSION['flash'] = [
-        'type' => $type,
-        'message' => $message
-    ];
-}
-
-// ================== CSRF TOKEN GENERATOR ==================
-function csrfToken()
-{
-    if (session_status() === PHP_SESSION_NONE) {
-        session_start();
-    }
-
-    if (empty($_SESSION['csrf_token'])) {
-        $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-    }
-
-    return $_SESSION['csrf_token'];
 }

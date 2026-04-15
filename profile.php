@@ -93,7 +93,7 @@ $pageTitle = 'My Profile';
 </head>
 
 <body>
-    <?php include 'components/user_header.php'; ?>
+    <?php include 'components/user-header.php'; ?>
 
     <div class="container py-5">
         <div class="row justify-content-center">
@@ -157,7 +157,7 @@ $pageTitle = 'My Profile';
 
 
 
-    <?php include 'components/footer.php'; ?>
+    <?php include 'components/user-footer.php'; ?>
 
     <script src="bootstrap-5.3.8-dist/bootstrap-5.3.8-dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/script.js"></script>

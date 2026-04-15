@@ -5,7 +5,7 @@ require_once 'includes/functions.php';
 
 // If user already logged in, redirect to home page
 if (isUserLoggedIn()) {
-    header('Location: home.php');
+    header('Location: index.php');
     exit;
 }
 
@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['user_name'] = $name;
 
             // Redirect to home page
-            header("Location: home.php");
+            header("Location: index.php");
             exit;
 
             // Success message
@@ -222,7 +222,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
 
                 <div class="auth-back-link">
-                    <a href="home.php"><i class="fas fa-arrow-left me-1"></i>Back to BlogSphere</a>
+                    <a href="index.php"><i class="fas fa-arrow-left me-1"></i>Back to BlogSphere</a>
                 </div>
             </div>
         </div>

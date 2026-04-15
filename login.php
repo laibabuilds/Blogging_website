@@ -4,7 +4,7 @@ require_once 'includes/functions.php';
 
 // If already logged in → go to home
 if (isUserLoggedIn()) {
-    header('Location: home.php');
+    header('Location: index.php');
     exit();
 }
 
@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 //loginUser($user); // store session
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['user_name'] = $user['name'];
-                header('Location: home.php');
+                header('Location: index.php');
                 exit();
             } else {
                 $error = "Wrong password!";
@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="auth-left-panel">
             <div class="auth-left-inner">
 
-                <a href="home.php" class="auth-panel-logo">
+                <a href="index.php" class="auth-panel-logo">
                     Blog<span>Sphere</span>
                 </a>
 
@@ -144,7 +144,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 <!-- Back -->
                 <div class="auth-back-link">
-                    <a href="home.php">
+                    <a href="index.php">
                         <i class="fas fa-arrow-left"></i> Back to Home
                     </a>
                 </div>
@@ -154,21 +154,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     </div>
 
-    <script>
-        function togglePass(id, btn) {
-            const input = document.getElementById(id);
-            const icon = btn.querySelector('i');
 
-            if (input.type === "password") {
-                input.type = "text";
-                icon.classList.replace('fa-eye', 'fa-eye-slash');
-            } else {
-                input.type = "password";
-                icon.classList.replace('fa-eye-slash', 'fa-eye');
-            }
-        }
-    </script>
-
+    <script src="bootstrap-5.3.8-dist/bootstrap-5.3.8-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/script.js"></script>
 </body>
 
 </html>
