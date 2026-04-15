@@ -19,7 +19,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
 <aside class="admin-sidebar" id="adminSidebar">
 
     <a href="dashboard.php" class="sidebar-brand">
-            <p class="auth-panel-logo">Blog<span>Sphere</span></p>
+        <p class="auth-panel-logo">Blog<span>Sphere</span></p>
         <span class="admin-text">ADMIN PANEL</span>
     </a>
 
@@ -54,7 +54,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
         </a>
 
         <a href="register_admin.php" class="<?= ($current_page == 'register_admin.php') ? 'active' : '' ?>">
-            <i class="fas fa-user-plus"></i> Add Admin
+            <i class="fas fa-user-plus"></i> Add New User
         </a>
 
         <a href="update_profile.php" class="<?= ($current_page == 'update-account.php') ? 'active' : '' ?>">
@@ -62,7 +62,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
         </a>
 
         <div class="menu-label">Website</div>
-        <a href="../home.php" target="_blank">
+        <a href="../index.php" target="_blank">
             <i class="fas fa-external-link-alt"></i> View Website
         </a>
 
@@ -110,7 +110,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
 
             <div class="d-flex align-items-center gap-2 gap-md-3">
 
-                <a href="../home.php" target="_blank" class="btn btn-sm view-site-btn">
+                <a href="../index.php" target="_blank" class="btn btn-sm view-site-btn">
                     <i class="fas fa-eye"></i> <span class="d-none d-md-inline">View Site</span>
                 </a>
 

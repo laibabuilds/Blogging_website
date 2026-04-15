@@ -102,7 +102,7 @@ $pageDesc = 'Browse all blog posts on BlogSphere. Filter by category, search by 
 </head>
 
 <body>
-    <?php include 'components/user_header.php'; ?>
+    <?php include 'components/user-header.php'; ?>
 
     <!-- Page Hero -->
     <section class="posts-hero-section">
@@ -297,8 +297,8 @@ $pageDesc = 'Browse all blog posts on BlogSphere. Filter by category, search by 
         </div>
     </div>
 
+    <?php include 'components/user-footer.php'; ?>
 
-    <?php include 'components/footer.php'; ?>
 
     <script src="bootstrap-5.3.8-dist/bootstrap-5.3.8-dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/script.js"></script>

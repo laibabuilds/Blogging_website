@@ -8,7 +8,7 @@ $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 
 // If no ID → redirect
 if ($id <= 0) {
-    header('Location: home.php');
+    header('Location: index.php');
     exit;
 }
 
@@ -17,7 +17,7 @@ $post = getPostById($id);
 
 // If post not found OR not active → redirect
 if (!$post || $post['status'] !== 'active') {
-    header('Location: home.php');
+    header('Location: index.php');
     exit;
 }
 
@@ -56,13 +56,13 @@ $pageDesc = excerpt($post['content'], 160);
 </head>
 
 <body>
-    <?php include 'components/user_header.php'; ?>
+    <?php include 'components/user-header.php'; ?>
 
     <div class="breadcrumb-section">
         <div class="container">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-0">
-                    <li class="breadcrumb-item"><a href="home.php">Home</a></li>
+                    <li class="breadcrumb-item"><a href="index.php">Home</a></li>
                     <li class="breadcrumb-item"><a href="category.php?cat=<?= urlencode($post['category']) ?>"><?= sanitize($post['category']) ?></a></li>
                     <li class="breadcrumb-item active"><?= sanitize(substr($post['title'], 0, 40)) ?>...</li>
                 </ol>
@@ -203,7 +203,7 @@ $pageDesc = excerpt($post['content'], 160);
         </div>
     </div>
 
-    <?php include 'components/footer.php'; ?>
+    <?php include 'components/user-footer.php'; ?>
 
     <script src="bootstrap-5.3.8-dist/bootstrap-5.3.8-dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/script.js"></script>

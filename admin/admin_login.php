@@ -112,7 +112,7 @@ if (isset($_POST['submit'])) {
                             </button>
                         </form>
                         <div class="text-center mt-4">
-                            <a href="../home.php" style="font-size:0.82rem;color:var(--text-muted);"><i class="fas fa-arrow-left me-1"></i>Back to Website</a>
+                            <a href="../index.php" style="font-size:0.82rem;color:var(--text-muted);"><i class="fas fa-arrow-left me-1"></i>Back to Website</a>
                         </div>
 
                     </div>

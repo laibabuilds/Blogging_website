@@ -111,16 +111,8 @@ $basePath = $basePath ?? '';
 </button>
 
 <!-- ================== SCRIPTS ================== -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
-
-<?php if (isset($csrfInline)): ?>
-<script>
-    const csrfToken = "<?= csrfToken() ?>";
-</script>
-<?php endif; ?>
-
-<script src="<?= $basePath ?>assets/js/main.js"></script>
+<script src="bootstrap-5.3.8-dist/bootstrap-5.3.8-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/script.js"></script>
 
 </body>
 </html>
