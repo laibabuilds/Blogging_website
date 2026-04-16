@@ -144,23 +144,27 @@ function getAllCategories()
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 // ger all categogry 
-function getPostsByCategory($category, $limit = 3) {
+function getPostsByCategory($category, $limit = 6, $offset = 0) {
     $db = getDB();
 
     $stmt = $db->prepare("
-        SELECT *
-        FROM posts
-        WHERE category = ?
-          AND status = 'active'
-        ORDER BY date DESC
-        LIMIT ?
+        SELECT p.*,
+               COUNT(DISTINCT l.id) AS like_count,
+               COUNT(DISTINCT c.id) AS comment_count
+        FROM posts p
+        LEFT JOIN likes l ON l.post_id = p.id
+        LEFT JOIN comments c ON c.post_id = p.id
+        WHERE p.category = ? AND p.status = 'active'
+        GROUP BY p.id
+        ORDER BY p.date DESC
+        LIMIT ? OFFSET ?
     ");
 
     $stmt->bindValue(1, $category, PDO::PARAM_STR);
     $stmt->bindValue(2, (int)$limit, PDO::PARAM_INT);
-
+    $stmt->bindValue(3, (int)$offset, PDO::PARAM_INT);
     $stmt->execute();
-    return $stmt->fetchAll();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
 function countPostsByCategory(string $category): int {

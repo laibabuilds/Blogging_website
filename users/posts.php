@@ -272,7 +272,7 @@ $pageDesc = 'Browse all blog posts.';
                                 <div class="recent-post-thumb img-placeholder" style="min-height:60px;font-size:1.2rem;border-radius:6px;"></div>
                             <?php endif; ?>
                             <div>
-                                <a href="post.php?id=<?= $rp['id'] ?>" class="recent-post-title"><?= sanitize($rp['title']) ?></a>
+                                <a href="view_post.php?id=<?= $rp['id'] ?>" class="recent-post-title"><?= sanitize($rp['title']) ?></a>
                                 <div class="recent-post-date"><i class="fas fa-calendar-alt me-1"></i><?= formatDate($rp['date']) ?></div>
                             </div>
                         </div>
