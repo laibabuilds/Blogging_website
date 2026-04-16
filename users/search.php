@@ -1,8 +1,8 @@
 <?php
 session_start();
 
-require_once __DIR__ . '/components/connect.php';
-require_once __DIR__ . '/includes/functions.php';
+@include '../components/connect.php';
+require_once '../includes/functions.php';
 
 // check login safely
 if (!isset($_SESSION['admin_id'])) {
@@ -111,7 +111,7 @@ $categories = function_exists('getAllCategories') ? getAllCategories() : [];
                                 <div class="post-card">
                                     <div class="post-card-img-wrapper">
                                         <?php if ($post['image']): ?>
-                                            <img src="<?= 'uploaded_img/' . $post['image'] ?>" alt="<?= sanitize($post['title']) ?>" class="post-card-img">
+                                            <img src="<?= '../uploaded_img/' . $post['image'] ?>" alt="<?= sanitize($post['title']) ?>" class="post-card-img">
                                         <?php else: ?>
                                             <div class="img-placeholder" style="height:220px;"><i class="fas fa-image"></i></div>
                                         <?php endif; ?>
