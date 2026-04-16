@@ -1,6 +1,6 @@
 <?php
-require_once 'includes/auth.php';
-require_once 'includes/functions.php';
+require_once '../includes/auth.php';
+require_once '../includes/functions.php';
 
 $db = getDB();
 
@@ -43,12 +43,12 @@ $pageDesc  = 'Browse all categories on BlogSphere — Technology, Lifestyle, Tra
 
     <!-- CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylesheet" href="bootstrap-5.3.8-dist/bootstrap-5.3.8-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="css\style.css">
+    <link rel="stylesheet" href="../bootstrap-5.3.8-dist/bootstrap-5.3.8-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css\style.css">
 </head>
 <body>
 
-<?php include 'components/user-header.php'; ?>
+<?php include '../components/user-header.php'; ?>
     <!-- Page Hero -->
 <section class="cats-hero">
     <div class="container position-relative" style="z-index:1;">
@@ -107,7 +107,7 @@ $pageDesc  = 'Browse all categories on BlogSphere — Technology, Lifestyle, Tra
                 <!-- Card header with gradient + icon -->
                 <div class="cat-card-header" style="background:linear-gradient(135deg,<?= $c1 ?>,<?= $c2 ?>);">
                     <?php if ($cd['cover']): ?>
-                    <img src="<?= postImageUrl($cd['cover']) ?>" alt="<?= sanitize($cd['name']) ?>" class="cat-card-bg-img">
+                    <img src="<?= '../uploaded_img/' . $cd['cover'] ?>" alt="<?= sanitize($cd['name']) ?>" class="cat-card-bg-img">
                     <div class="cat-card-overlay"></div>
                     <?php endif; ?>
                     <div class="cat-card-header-inner">
@@ -166,7 +166,7 @@ $pageDesc  = 'Browse all categories on BlogSphere — Technology, Lifestyle, Tra
     <?php endif; ?>
 </div>
 
-<?php include 'components/user-footer.php'; ?>
+<?php include '../components/user-footer.php'; ?>
 
 <!-- JS -->
     <script src="bootstrap-5.3.8-dist/bootstrap-5.3.8-dist/js/bootstrap.bundle.min.js"></script>

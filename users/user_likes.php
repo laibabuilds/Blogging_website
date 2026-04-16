@@ -1,6 +1,6 @@
 <?php
-require_once 'includes/auth.php';
-require_once 'includes/functions.php';
+require_once '../includes/auth.php';
+require_once '../includes/functions.php';
 
 // Make sure user is logged in
 requireUserLogin();
@@ -41,13 +41,13 @@ $pageTitle = 'Liked Posts';
     <!-- CSS will be loaded by user-header.php -->
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylesheet" href="/blogging_project/bootstrap-5.3.8-dist/bootstrap-5.3.8-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/blogging_project/css/style.css">
+  <link rel="stylesheet" href="../bootstrap-5.3.8-dist/bootstrap-5.3.8-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/style.css">
 
 </head>
 
 <body>
-    <?php include 'components/user-header.php'; ?>
+    <?php include '../components/user-header.php'; ?>
 
     <div class="container my-5">
         <?php if (empty($likedPosts)): ?>
@@ -64,7 +64,7 @@ $pageTitle = 'Liked Posts';
                         <div class="post-card">
                             <div class="post-card-img-wrapper">
                                 <?php if (!empty($post['image'])): ?>
-                                    <img src="uploaded_img/" alt="<?= sanitize($post['title']) ?>">
+                                    <img src="<?= '../uploaded_img/' . $post['image'] ?>" alt="<?= sanitize($post['title']) ?>">
                                 <?php else: ?>
                                     <div class="img-placeholder" style="height:220px;"><i class="fas fa-image"></i></div>
                                 <?php endif; ?>
@@ -92,8 +92,8 @@ $pageTitle = 'Liked Posts';
 
 
 
-    <script src="/blogging_project/bootstrap-5.3.8-dist/bootstrap-5.3.8-dist/js/bootstrap.bundle.min.js"></script>
-    <script src="/blogging_project/js/script.js"></script>
+    <script src="../bootstrap-5.3.8-dist/bootstrap-5.3.8-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/script.js"></script>
 </body>
 
 </html>

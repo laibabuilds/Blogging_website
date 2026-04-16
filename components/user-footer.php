@@ -78,8 +78,8 @@ $basePath = $basePath ?? '';
 
     <!-- ================== SCRIPTS ================== -->
 
-    <script src="/blogging_project/bootstrap-5.3.8-dist/bootstrap-5.3.8-dist/js/bootstrap.bundle.min.js"></script>
-    <script src="/blogging_project/js/script.js"></script>
+    <script src="../bootstrap-5.3.8-dist/bootstrap-5.3.8-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/script.js"></script>
 </body>
 
 </html>

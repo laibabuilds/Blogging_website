@@ -1,6 +1,6 @@
 <?php
-require_once 'includes/auth.php';
-require_once 'includes/functions.php';
+require_once '../includes/auth.php';
+require_once '../includes/functions.php';
 
 $perPage = 9;
 $page = max(1, (int)($_GET['page'] ?? 1));
@@ -89,14 +89,14 @@ $pageDesc = 'Browse all blog posts.';
 
     <!-- CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylesheet" href="/blogging_project/bootstrap-5.3.8-dist/bootstrap-5.3.8-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/blogging_project/css/style.css">
+    <link rel="stylesheet" href="../bootstrap-5.3.8-dist/bootstrap-5.3.8-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/style.css">
 
 
 </head>
 
 <body>
-    <?php include 'components/user-header.php'; ?>
+    <?php include '../components/user-header.php'; ?>
 
     <!-- Page Hero -->
     <section class="posts-hero-section">
@@ -195,7 +195,7 @@ $pageDesc = 'Browse all blog posts.';
                                 <div class="post-card">
                                     <div class="post-card-img-wrapper">
                                         <?php if ($post['image']): ?>
-                                            <img src="<?= 'uploaded_img/' . $post['image'] ?>" alt="<?= sanitize($post['title']) ?>" class="post-card-img">
+                                            <img src="<?= '../uploaded_img/' . $post['image'] ?>" alt="<?= sanitize($post['title']) ?>" class="post-card-img">
                                         <?php else: ?>
                                             <div class="img-placeholder" style="height:220px;"><i class="fas fa-image"></i></div>
                                         <?php endif; ?>
@@ -267,7 +267,7 @@ $pageDesc = 'Browse all blog posts.';
                     <?php foreach ($recentPosts as $rp): ?>
                         <div class="recent-post-item">
                             <?php if ($rp['image']): ?>
-                                <img src="<?= 'uploaded_img/' . $rp['image'] ?>" alt="" class="recent-post-thumb">
+                                <img src="<?= '../uploaded_img/' . $rp['image'] ?>" alt="" class="recent-post-thumb">
                             <?php else: ?>
                                 <div class="recent-post-thumb img-placeholder" style="min-height:60px;font-size:1.2rem;border-radius:6px;"></div>
                             <?php endif; ?>
@@ -291,12 +291,12 @@ $pageDesc = 'Browse all blog posts.';
         </div>
     </div>
 
-    <?php include 'components/user-footer.php'; ?>
+    <?php include '../components/user-footer.php'; ?>
 
 
 
-    <script src="/blogging_project/bootstrap-5.3.8-dist/bootstrap-5.3.8-dist/js/bootstrap.bundle.min.js"></script>
-    <script src="/blogging_project/js/script.js"></script>
+    <script src="../bootstrap-5.3.8-dist/bootstrap-5.3.8-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/script.js"></script>
 </body>
 
 </html>
