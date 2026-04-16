@@ -89,8 +89,8 @@ $pageDesc = 'Browse all blog posts.';
 
     <!-- CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylesheet" href="bootstrap-5.3.8-dist/bootstrap-5.3.8-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="css\style.css">
+    <link rel="stylesheet" href="/blogging_project/bootstrap-5.3.8-dist/bootstrap-5.3.8-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/blogging_project/css/style.css">
 
 
 </head>
@@ -294,8 +294,9 @@ $pageDesc = 'Browse all blog posts.';
     <?php include 'components/user-footer.php'; ?>
 
 
-    <script src="bootstrap-5.3.8-dist/bootstrap-5.3.8-dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/script.js"></script>
+
+    <script src="/blogging_project/bootstrap-5.3.8-dist/bootstrap-5.3.8-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/blogging_project/js/script.js"></script>
 </body>
 
 </html>

@@ -93,8 +93,8 @@ $pageDesc = excerpt($post['content'], 160);
 
     <!-- CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylesheet" href="bootstrap-5.3.8-dist/bootstrap-5.3.8-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="/blogging_project/bootstrap-5.3.8-dist/bootstrap-5.3.8-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/blogging_project/css/style.css">
 
 
 </head>
@@ -213,11 +213,11 @@ $pageDesc = excerpt($post['content'], 160);
                         <?php foreach ($relatedPosts as $relp): ?>
                             <?php if ($relp['id'] == $post['id']) continue; ?>
                             <div class="recent-post-item">
-                               <?php if ($relp['image']): ?>
-                                <img src="<?= 'uploaded_img/' . $relp['image'] ?>" alt="" class="recent-post-thumb">
-                            <?php else: ?>
-                                <div class="recent-post-thumb img-placeholder" style="min-height:60px;font-size:1.2rem;border-radius:6px;"></div>
-                            <?php endif; ?>
+                                <?php if ($relp['image']): ?>
+                                    <img src="<?= 'uploaded_img/' . $relp['image'] ?>" alt="" class="recent-post-thumb">
+                                <?php else: ?>
+                                    <div class="recent-post-thumb img-placeholder" style="min-height:60px;font-size:1.2rem;border-radius:6px;"></div>
+                                <?php endif; ?>
                                 <div>
                                     <a href="view_post.php?id=<?= $relp['id'] ?>" class="recent-post-title"><?= sanitize($relp['title']) ?></a>
                                     <div class="recent-post-date"><?= formatDate($relp['date']) ?></div>
@@ -249,8 +249,8 @@ $pageDesc = excerpt($post['content'], 160);
 
     <?php include 'components/user-footer.php'; ?>
 
-    <script src="bootstrap-5.3.8-dist/bootstrap-5.3.8-dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/script.js"></script>
+    <script src="/blogging_project/bootstrap-5.3.8-dist/bootstrap-5.3.8-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/blogging_project/js/script.js"></script>
 </body>
 
 </html>

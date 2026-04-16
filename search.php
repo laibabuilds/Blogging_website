@@ -41,9 +41,10 @@ $categories = function_exists('getAllCategories') ? getAllCategories() : [];
     <title>Search Posts</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylesheet" href="bootstrap-5.3.8-dist/bootstrap-5.3.8-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/blogging_project/bootstrap-5.3.8-dist/bootstrap-5.3.8-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/blogging_project/css/style.css">
     <link rel="stylesheet" href="./css/admin_style.css">
-    <link rel="stylesheet" href="./css/style.css">
+
 </head>
 
 <body>
@@ -187,7 +188,9 @@ $categories = function_exists('getAllCategories') ? getAllCategories() : [];
     </div>
 
     <!-- JS -->
-    <script src="./bootstrap-5.3.8-dist/bootstrap.bundle.min.js"></script>
+   
+    <script src="/blogging_project/bootstrap-5.3.8-dist/bootstrap-5.3.8-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/blogging_project/js/script.js"></script>
 
 </body>
 
