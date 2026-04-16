@@ -949,6 +949,178 @@ textarea.form-control {
   letter-spacing: 0.8px;
 }
 
+/* ===== CATEGORIES PAGE ===== */
+.cats-hero {
+    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 55%, #2d5282 100%);
+    padding: 3rem 0 2.5rem;
+    position: relative;
+    overflow: hidden;
+}
+.cats-hero::before {
+    content:''; position:absolute; top:-50%; right:-8%; width:400px; height:400px;
+    background:rgba(255,255,255,0.04); border-radius:50%; pointer-events:none;
+}
+.cats-hero::after {
+    content:''; position:absolute; bottom:-60%; left:-5%; width:300px; height:300px;
+    background:rgba(245,158,11,0.06); border-radius:50%; pointer-events:none;
+}
+.cats-hero-title {
+    font-family:'Playfair Display',serif; font-size:clamp(1.8rem,3.5vw,2.8rem);
+    color:#fff; margin:0 0 0.6rem; font-weight:700;
+}
+.cats-hero-sub { color:rgba(255,255,255,0.72); font-size:1rem; margin-bottom:1.5rem; }
+.cats-hero-link {
+    display:inline-flex; align-items:center; gap:0.4rem;
+    background:rgba(255,255,255,0.12); border:1.5px solid rgba(255,255,255,0.25);
+    color:#fff; padding:0.5rem 1.3rem; border-radius:25px;
+    font-size:0.875rem; font-weight:500; text-decoration:none; transition:var(--transition);
+}
+.cats-hero-link:hover { background:rgba(255,255,255,0.22); color:#fff; }
+
+/* Category quick pills strip */
+.cats-strip {
+    background:#fff;
+    border-bottom:1px solid var(--border);
+    padding:0.85rem 0;
+    overflow-x:auto;
+}
+.cats-strip-inner {
+    display:flex; gap:0.5rem; align-items:center; flex-wrap:nowrap; overflow-x:auto;
+    padding-bottom:2px;
+    scrollbar-width:none;
+}
+.cats-strip-inner::-webkit-scrollbar { display:none; }
+.cats-strip-pill {
+    display:inline-flex; align-items:center; gap:0.45rem;
+    background:var(--bg-light); border:1.5px solid var(--border);
+    border-radius:25px; padding:0.35rem 0.9rem;
+    font-size:0.8rem; font-weight:500; color:var(--text-dark);
+    text-decoration:none; transition:var(--transition); white-space:nowrap; flex-shrink:0;
+}
+.cats-strip-pill:hover { background:var(--primary); color:#fff; border-color:var(--primary); }
+.cats-strip-count {
+    background:var(--accent); color:#fff; font-size:0.68rem; font-weight:700;
+    padding:0.1rem 0.45rem; border-radius:20px;
+}
+
+/* Category Card */
+.cat-card {
+    background:#fff;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    border:1px solid var(--border);
+    overflow:hidden;
+    transition:var(--transition);
+    height:100%;
+    display:flex;
+    flex-direction:column;
+}
+.cat-card:hover {
+    transform:translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.13);
+}
+
+/* Card Header */
+.cat-card-header {
+    position:relative;
+    padding: 1.75rem 1.5rem;
+    overflow:hidden;
+    min-height:130px;
+    display:flex;
+    align-items:flex-end;
+}
+.cat-card-bg-img {
+    position:absolute; inset:0; width:100%; height:100%;
+    object-fit:cover; opacity:0.25;
+}
+.cat-card-overlay {
+    position:absolute; inset:0;
+    background:linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.35) 100%);
+}
+.cat-card-header-inner {
+    position:relative; z-index:1; width:100%;
+}
+.cat-card-icon {
+    width:36px; height:36px; border-radius:9px;
+    background:rgba(255,255,255,0.2); border:1px solid rgba(255,255,255,0.3);
+    display:flex; align-items:center; justify-content:center;
+    color:#fff; font-size:0.9rem; margin-bottom:0.6rem;
+}
+.cat-card-count {
+    font-size:0.72rem; color:rgba(255,255,255,0.75);
+    text-transform:uppercase; letter-spacing:0.8px;
+    font-weight:600; margin-bottom:0.2rem;
+}
+.cat-card-name {
+    font-family:'Playfair Display',serif; font-size:1.35rem;
+    color:#fff; font-weight:700; margin:0; line-height:1.2;
+}
+
+/* Card Body */
+.cat-card-body {
+    padding:1.25rem 1.5rem 1.5rem;
+    flex:1;
+    display:flex;
+    flex-direction:column;
+}
+
+.cat-post-list {
+    list-style:none; padding:0; margin:0 0 1.25rem; flex:1;
+}
+.cat-post-item {
+    display:flex; gap:0.6rem; align-items:flex-start;
+    padding:0.6rem 0;
+    border-bottom:1px solid var(--border);
+}
+.cat-post-item:last-child { border-bottom:none; }
+
+.cat-post-arrow {
+    color:var(--accent); font-size:0.65rem; margin-top:4px; flex-shrink:0;
+}
+.cat-post-info { flex:1; min-width:0; }
+.cat-post-title {
+    display:block; font-size:0.875rem; font-weight:600;
+    color:var(--text-dark); text-decoration:none; line-height:1.4;
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+    transition:color 0.2s;
+}
+.cat-post-title:hover { color:var(--primary); }
+.cat-post-date {
+    font-size:0.72rem; color:var(--text-muted); margin-top:0.2rem;
+}
+
+.cat-card-link {
+    display:block; text-align:center;
+    color:#fff; font-size:0.82rem; font-weight:600;
+    padding:0.7rem 1rem; border-radius:8px;
+    text-decoration:none; transition:var(--transition);
+    letter-spacing:0.3px;
+    margin-top:auto;
+}
+.cat-card-link:hover { opacity:0.88; color:#fff; transform:translateY(-1px); }
+
+/* CTA section */
+.cats-cta {
+    margin-top:4rem;
+    background:linear-gradient(135deg,var(--primary-dark),var(--primary));
+    border-radius:var(--radius);
+    padding:3rem 2rem;
+    text-align:center;
+    overflow:hidden;
+    position:relative;
+}
+.cats-cta::before {
+    content:''; position:absolute; top:-40%; right:-5%; width:250px; height:250px;
+    background:rgba(255,255,255,0.04); border-radius:50%;
+}
+.cats-cta-inner { position:relative; z-index:1; }
+.cats-cta h3 {
+    font-family:'Playfair Display',serif; color:#fff;
+    font-size:1.6rem; margin-bottom:0.5rem;
+}
+.cats-cta p { color:rgba(255,255,255,0.7); margin-bottom:1.5rem; }
+
+
 /* ===== FOOTER ===== */
 .site-footer {
   background: linear-gradient(135deg, var(--primary-dark) 0%, #0f2340 100%);
