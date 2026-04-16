@@ -1,6 +1,6 @@
 <?php
-require_once 'includes/auth.php';
-require_once 'includes/functions.php';
+require_once '../includes/auth.php';
+require_once '../includes/functions.php';
 
 // Get post ID
 $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
@@ -93,14 +93,14 @@ $pageDesc = excerpt($post['content'], 160);
 
     <!-- CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylesheet" href="/blogging_project/bootstrap-5.3.8-dist/bootstrap-5.3.8-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/blogging_project/css/style.css">
+  <link rel="stylesheet" href="../bootstrap-5.3.8-dist/bootstrap-5.3.8-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/style.css">
 
 
 </head>
 
 <body>
-    <?php include 'components/user-header.php'; ?>
+    <?php include '../components/user-header.php'; ?>
 
     <div class="breadcrumb-section">
         <div class="container">
@@ -119,7 +119,7 @@ $pageDesc = excerpt($post['content'], 160);
             <div class="col-lg-8">
                 <article class="post-single">
                     <?php if ($post['image']): ?>
-                        <img src="<?= 'uploaded_img/' . $post['image'] ?>" alt="<?= sanitize($post['title']) ?>" class="post-single-hero w-100">
+                        <img src="<?= '../uploaded_img/' . $post['image'] ?>" alt="<?= sanitize($post['title']) ?>" class="post-single-hero w-100">
                     <?php else: ?>
                         <div class="img-placeholder" style="height:350px;"><i class="fas fa-image"></i></div>
                     <?php endif; ?>
@@ -214,7 +214,7 @@ $pageDesc = excerpt($post['content'], 160);
                             <?php if ($relp['id'] == $post['id']) continue; ?>
                             <div class="recent-post-item">
                                 <?php if ($relp['image']): ?>
-                                    <img src="<?= 'uploaded_img/' . $relp['image'] ?>" alt="" class="recent-post-thumb">
+                                    <img src="<?= '../uploaded_img/' . $relp['image'] ?>" alt="" class="recent-post-thumb">
                                 <?php else: ?>
                                     <div class="recent-post-thumb img-placeholder" style="min-height:60px;font-size:1.2rem;border-radius:6px;"></div>
                                 <?php endif; ?>
@@ -232,7 +232,7 @@ $pageDesc = excerpt($post['content'], 160);
                     <?php foreach ($recentPosts as $rp): ?>
                         <div class="recent-post-item">
                             <?php if ($rp['image']): ?>
-                                <img src="<?= 'uploaded_img/' . $rp['image'] ?>" alt="" class="recent-post-thumb">
+                                <img src="<?= '../uploaded_img/' . $rp['image'] ?>" alt="" class="recent-post-thumb">
                             <?php else: ?>
                                 <div class="recent-post-thumb img-placeholder" style="min-height:60px;font-size:1.1rem;border-radius:6px;flex-shrink:0;"></div>
                             <?php endif; ?>
@@ -247,10 +247,10 @@ $pageDesc = excerpt($post['content'], 160);
         </div>
     </div>
 
-    <?php include 'components/user-footer.php'; ?>
+    <?php include '../components/user-footer.php'; ?>
 
-    <script src="/blogging_project/bootstrap-5.3.8-dist/bootstrap-5.3.8-dist/js/bootstrap.bundle.min.js"></script>
-    <script src="/blogging_project/js/script.js"></script>
+    <script src="../bootstrap-5.3.8-dist/bootstrap-5.3.8-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/script.js"></script>
 </body>
 
 </html>

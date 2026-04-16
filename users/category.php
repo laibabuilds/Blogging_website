@@ -1,6 +1,6 @@
 <?php
-require_once 'includes/auth.php';
-require_once 'includes/functions.php';
+require_once '../includes/auth.php';
+require_once '../includes/functions.php';
 
 $cat = trim($_GET['cat'] ?? '');
 if (!$cat) { header('Location: index.php'); exit; }
@@ -13,7 +13,6 @@ $total = countPostsByCategory($cat);
 $totalPages = ceil($total / $perPage) ?: 1;
 $categories = getAllCategories();
 $pageTitle = $cat . ' - Category';
-include 'components/header.php';
 ?>
 
 <!DOCTYPE html>
@@ -26,14 +25,14 @@ include 'components/header.php';
 
     <!-- CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylesheet" href="./bootstrap-5.3.8-dist/bootstrap-5.3.8-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="../bootstrap-5.3.8-dist/bootstrap-5.3.8-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/style.css">
 
 
 </head>
 
 <body>
-    <?php include './components/user-header.php'; ?>
+    <?php include '../components/user-header.php'; ?>
 
     <section style="background:linear-gradient(135deg,var(--primary-dark),var(--primary));padding:3rem 0;color:#fff;">
     <div class="container">
@@ -81,7 +80,7 @@ include 'components/header.php';
                     <div class="post-card">
                         <div class="post-card-img-wrapper">
                             <?php if (!empty($post['image'])): ?>
-                            <img src="<?= postImageUrl($post['image']) ?>" alt="<?= sanitize($post['title']) ?>">
+                            <img src="<?= '../uploaded_img/' . $post['image'] ?>" alt="<?= sanitize($post['title']) ?>">
                             <?php else: ?>
                             <div class="img-placeholder" style="height:220px;"><i class="fas fa-image"></i></div>
                             <?php endif; ?>
@@ -96,7 +95,7 @@ include 'components/header.php';
                                     <br><small style="color:var(--text-muted);"><?= formatDate($post['date']) ?></small>
                                 </div>
                                 <div class="stats">
-                                    <span class="stat-like"><i class="fas fa-heart"></i> <?= $post['like_count'] ?></span>
+                                    <span class="stat-like"><i class="fas fa-heart"></i><?= $post['like_count'] ?></span>
                                     <span class="stat-comment"><i class="fas fa-comment"></i> <?= $post['comment_count'] ?></span>
                                 </div>
                             </div>
@@ -140,11 +139,11 @@ include 'components/header.php';
     </div>
 </div>
 
-    <?php include './components/user-footer.php'; ?>
+    <?php include '../components/user-footer.php'; ?>
 
     <!-- JS -->
-    <script src="./bootstrap-5.3.8-dist/bootstrap-5.3.8-dist/js/bootstrap.bundle.min.js"></script>
-    <script src="./js/script.js"></script>
+    <script src="../bootstrap-5.3.8-dist/bootstrap-5.3.8-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/script.js"></script>
 
 </body>
 
