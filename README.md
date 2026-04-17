@@ -70,65 +70,64 @@ A complete *Blogging Content Management System (CMS)* built using *PHP & MySQL, 
 
 ## 📂 Project Structure
 
-bash
+```bash
 project-root/
 │
 ├── admin/
-│   ├── add_posts.php
-│   ├── admin_accounts.php
-│   ├── admin_login.php
-│   ├── comments.php
-│   ├── dashboard.php
-│   ├── edit_post.php
-│   ├── read_post.php
-│   ├── register_Admin.php
-│   ├── update_profile.php
-│   ├── users_accounts.php
-│   └── view_posts.php
+│ ├── add_posts.php
+│ ├── admin_accounts.php
+│ ├── admin_login.php
+│ ├── comments.php
+│ ├── dashboard.php
+│ ├── edit_post.php
+│ ├── read_post.php
+│ ├── register_Admin.php
+│ ├── update_profile.php
+│ ├── users_accounts.php
+│ └── view_posts.php
 │
 ├── users/
-│   ├── all_category.php
-│   ├── category.php
-│   ├── index.php
-│   ├── login.php
-│   ├── posts.php
-│   ├── profile.php
-│   ├── register.php
-│   ├── search.php
-│   ├── user_likes.php
-│   └── view_posts.php
+│ ├── all_category.php
+│ ├── category.php
+│ ├── index.php
+│ ├── login.php
+│ ├── posts.php
+│ ├── profile.php
+│ ├── register.php
+│ ├── search.php
+│ ├── user_likes.php
+│ └── view_posts.php
 │
 ├── components/
-│   ├── admin_header.php
-│   ├── admin_logout.php
-│   ├── connect.php
-│   ├── user-header.php
-│   ├── user-footer.php
-│   └── user_logout.php
+│ ├── admin_header.php
+│ ├── admin_logout.php
+│ ├── connect.php
+│ ├── user-header.php
+│ ├── user-footer.php
+│ └── user_logout.php
 │
 ├── includes/
-│   ├── auth.php
-│   └── functions.php
+│ ├── auth.php
+│ └── functions.php
 │
 ├── css/
-│   ├── admin_style.css
-│   ├── auth.css
-│   └── style.css
+│ ├── admin_style.css
+│ ├── auth.css
+│ └── style.css
 │
 ├── js/
-│   ├── adminScript.js
-│   └── script.js
+│ ├── adminScript.js
+│ └── script.js
 │
-├── uploaded_img/        # Stores uploaded post images
-├── bootstrap/           # Bootstrap files
-├── assets/              # Screenshots for README
+├── uploaded_img/ # Stores uploaded images
+├── bootstrap/ # Bootstrap files
+├── assets/ # Screenshots for README
 │
-└── (Main Entry Points)
-    ├── index.php
-    ├── login.php
-    └── register.php
-
-
+└── Entry Files
+├── index.php
+├── login.php
+└── register.php
+```
 ---
 
 ## ⚙️ Setup Instructions
